@@ -6,7 +6,8 @@
   "scripts": {
     "lint": "eslint ./src",
     "test": "npm run lint && nyc --reporter=html ava",
-    "cover": "nyc ava"
+    "cover": "nyc ava",
+    "coveralls": "cat ./coverage/lcov.info | coveralls"
   },
   "devDependencies": {
     "ava": "0.25.0",
