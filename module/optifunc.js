@@ -1,6 +1,5 @@
 "use strict";
 const assert = require("assert");
-const AssertionError = require("assert").AssertionError;
 
 const REPEAT_TIMES = 10;
 const stringArrToFloat = arr => arr.map(ele => parseFloat(ele));
@@ -28,7 +27,7 @@ const run = (functions = [], ...parameters) => {
   });
 };
 
-let functionExecuter = (functions = [], ...parameters) => {
+let functionExecuter = (functions, ...parameters) => {
   const times = [];
   functions.map(func => {
     let res = runFuncXTimes(func, REPEAT_TIMES, ...parameters);
@@ -67,11 +66,7 @@ const compare = (func1, func2, ...args) => {
       assert.deepEqual(func1(...args), func2(...args));
       resolve("same output");
     } catch (e) {
-      if (e instanceof AssertionError) {
-        reject(e);
-      } else {
-        reject(e);
-      }
+      reject(e);
     }
   });
 };
