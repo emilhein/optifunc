@@ -53,8 +53,6 @@ const runFuncXTimes = (func, times, ...input) => {
 const elapsed_time = start => {
   let precision = 3; // 3 decimal places
   let elapsed = process.hrtime(start)[1] / 1000000; // divide by a million to get nano to milli
-  // console.log(process.hrtime(start)[0] + " s, " + elapsed.toFixed(precision) + " ms - "); // print message + time
-  // start = process.hrtime(); // reset the timer
   return elapsed.toFixed(precision);
 };
 
