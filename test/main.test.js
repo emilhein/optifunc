@@ -41,6 +41,6 @@ test('A path in which the function dont comapre', async t => {
   compare(func1, func2, input)
         .then(succes => console.log(succes))
         .catch(err => {
-          t.deepEqual(err.actual, 'output for a');
+          t.deepEqual(typeof err, 'object');
         });
 });
