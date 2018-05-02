@@ -6,8 +6,9 @@
 For now i only have two functions
 #### 1. compare(function1, function2, input1, input2, ...)
  simple check if two functions return the same output
- 
-####2. run([function1, function2, ...], input1, input2,input3, ...) 
+
+
+#### 2. run([function1, function2, ...], input1, input2,input3, ...) 
 run x amount of functions with same input and out some execution time statistics.
 
 ## basic usage
