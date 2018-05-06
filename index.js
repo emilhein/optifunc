@@ -4,6 +4,6 @@ const {
 } = require('./module/optifunc');
 
 module.exports = {
-    run,
-    compare
-}
+  run,
+  compare
+};
