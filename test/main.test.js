@@ -1,46 +1,41 @@
-'use strict';
-const {
-    run,
-    compare
-} = require('../module/optifunc');
-const test = require('ava');
-
-let func1 = () => 'output for a';
+"use strict";
+const assert = require("assert");
+const { run, compare } = require("./../module/optifunc");
+let func1 = () => "output for a";
 let func2 = a => a;
 let func3 = a => {
-  let b = a;
-  return b;
+    let b = a;
+    return b;
 };
+describe("The modeule test suite", function() {
+    it("A Happy path for the run function", async () => {
+        run([func1, func2], "test")
+            .then(succes => {
+                assert.deepEqual(succes.length, 2);
+                assert.deepEqual(succes[0].function, "func1");
+                assert.deepEqual(succes[1].function, "func2");
+            })
+            .catch(err => console.log(err));
+    });
 
+    it("A Happy path for the run function without function", async () => {
+        run()
+            .then(succes => assert.deepEqual(succes.length, 0))
+            .catch(err => console.log(err));
+    });
 
-test('A Happy path for the run function', async t => {
-  run([ func1, func2 ], 'test')
-        .then(succes => {
-          t.deepEqual(succes.length, 2);
-          t.deepEqual(succes[0].function, 'func1');
-          t.deepEqual(succes[1].function, 'func2');
-        })
-        .catch(err => console.log(err));
-});
+    it("A Happy path for the compare function (similar output)", async () => {
+        compare(func2, func3)
+            .then(succes => assert.deepEqual(succes, "same output"))
+            .catch(err => console.log(err));
+    });
 
-test('A Happy path for the run function without function', async t => {
-  run()
-        .then(succes => t.deepEqual(succes.length, 0))
-        .catch(err => console.log(err));
-});
-
-test('A Happy path for the compare function (similar output)', async t => {
-  compare(func2, func3)
-        .then(succes => t.deepEqual(succes, 'same output'))
-        .catch(err => console.log(err));
-});
-
-
-test('A path in which the function dont comapre', async t => {
-  let input = 'SOMEINPUT';
-  compare(func1, func2, input)
-        .then(succes => console.log(succes))
-        .catch(err => {
-          t.deepEqual(typeof err, 'object');
-        });
+    it("A path in which the function dont comapre", async () => {
+        let input = "SOMEINPUT";
+        compare(func1, func2, input)
+            .then(succes => console.log(succes))
+            .catch(err => {
+                assert.deepEqual(typeof err, "object");
+            });
+    });
 });
