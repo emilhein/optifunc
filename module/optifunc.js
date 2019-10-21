@@ -10,19 +10,23 @@ const getMin = arr => Math.min(...arr);
 
 const run = (functions = [], ...parameters) => {
     return new Promise((resolve, reject) => {
-        let returnSat = [];
-        let executionTimes = functionExecuter(functions, ...parameters);
-        executionTimes.map(fun => {
-            let timeNumbers = stringArrToFloat(fun.executionTimes);
-            let funcStat = {
-                function: fun.name,
-                max: getMax(timeNumbers),
-                min: getMin(timeNumbers),
-                avg: getAverage(timeNumbers)
-            };
-            returnSat.push(funcStat);
-        });
-        resolve(returnSat);
+        try {
+            let returnSat = [];
+            let executionTimes = functionExecuter(functions, ...parameters);
+            executionTimes.map(fun => {
+                let timeNumbers = stringArrToFloat(fun.executionTimes);
+                let funcStat = {
+                    function: fun.name,
+                    max: getMax(timeNumbers),
+                    min: getMin(timeNumbers),
+                    avg: getAverage(timeNumbers)
+                };
+                returnSat.push(funcStat);
+            });
+            resolve(returnSat);
+        } catch (error) {
+            reject(error);
+        }
     });
 };
 
@@ -49,13 +53,13 @@ const runFuncXTimes = (func, times, ...input) => {
 };
 
 const elapsed_time = start => {
-    let precision = 3; // 3 decimal places
-    let elapsed = process.hrtime(start)[1] / 1000000; // divide by a million to get nano to milli
+    const precision = 3; // 3 decimal places
+    const elapsed = process.hrtime(start)[1] / 1000000; // divide by a million to get nano to milli
     return elapsed.toFixed(precision);
 };
 
 const timeFunction = (func, ...input) => {
-    let start = process.hrtime();
+    const start = process.hrtime();
     func(...input); // run without care for output
     return elapsed_time(start);
 };
