@@ -1,6 +1,6 @@
 {
     "name": "optifunc",
-    "version": "1.1.4",
+    "version": "1.1.5",
     "description": "A NPM module to tests your function to make them better and faster",
     "repository": {
         "type": "git",
@@ -20,9 +20,7 @@
         "mocha": "^6.2.1",
         "nyc": "14.1.1"
     },
-    "dependencies": {
-        "babel-runtime": "6.26.0"
-    },
+    "dependencies": {},
     "keywords": [
         "functions",
         "test",
