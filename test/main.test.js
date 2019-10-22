@@ -7,6 +7,10 @@ let func3 = a => {
     let b = a;
     return b;
 };
+const errFunc = () => {
+    throw TypeError("Error");
+};
+
 describe("The modeule test suite", function() {
     it("A Happy path for the run function", async () => {
         run([func1, func2], "test")
@@ -16,6 +20,13 @@ describe("The modeule test suite", function() {
                 assert.deepEqual(succes[1].function, "func2");
             })
             .catch(err => console.log(err));
+    });
+    it("A UNHAPPY path for the run function", async () => {
+        run([errFunc, func2], "test")
+            .then(succes => {
+                console.log(succes);
+            })
+            .catch(err => assert.equal(err.message, "Error"));
     });
 
     it("A Happy path for the run function without function", async () => {
