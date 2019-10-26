@@ -12,7 +12,7 @@ const run = (functions = [], ...parameters) => {
     return new Promise((resolve, reject) => {
         try {
             let returnSat = [];
-            let executionTimes = functionExecuter({functions, ...parameters, repeat = REPEAT_TIMES});
+            let executionTimes = functionExecuter({ functions, ...parameters });
             executionTimes.map(fun => {
                 let timeNumbers = stringArrToFloat(fun.executionTimes);
                 let funcStat = {
@@ -30,10 +30,10 @@ const run = (functions = [], ...parameters) => {
     });
 };
 
-const functionExecuter = ({functions, ...parameters, repeat = REPEAT_TIMES}) => {
+const functionExecuter = ({ functions, ...parameters }) => {
     const times = [];
     functions.map(func => {
-        let res = runFuncXTimes(func, repeat, ...parameters);
+        let res = runFuncXTimes(func, REPEAT_TIMES, ...parameters);
         times.push(res);
     });
     return times;
