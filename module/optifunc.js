@@ -8,11 +8,11 @@ const getAverage = arr => (arr.reduce((a, b) => a + b, 0) / arr.length).toFixed(
 const getMax = arr => Math.max(...arr);
 const getMin = arr => Math.min(...arr);
 
-const run = (functions = [], ...parameters) => {
+const run = ({ functions = [], runTimes = REPEAT_TIMES } = {}, ...parameters) => {
     return new Promise((resolve, reject) => {
         try {
             let returnSat = [];
-            let executionTimes = functionExecuter({ functions, ...parameters });
+            let executionTimes = functionExecuter({ functions, runTimes }, ...parameters);
             executionTimes.map(fun => {
                 let timeNumbers = stringArrToFloat(fun.executionTimes);
                 let funcStat = {
@@ -30,10 +30,10 @@ const run = (functions = [], ...parameters) => {
     });
 };
 
-const functionExecuter = ({ functions, ...parameters }) => {
+const functionExecuter = ({ functions, runTimes }, ...parameters) => {
     const times = [];
     functions.map(func => {
-        let res = runFuncXTimes(func, REPEAT_TIMES, ...parameters);
+        let res = runFuncXTimes(func, runTimes, ...parameters);
         times.push(res);
     });
     return times;

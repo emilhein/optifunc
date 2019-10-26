@@ -13,7 +13,16 @@ const errFunc = () => {
 
 describe("The modeule test suite", function() {
     it("A Happy path for the run function", async () => {
-        run([func1, func2], "test")
+        run({ functions: [func1, func2] }, "test")
+            .then(succes => {
+                assert.deepEqual(succes.length, 2);
+                assert.deepEqual(succes[0].function, "func1");
+                assert.deepEqual(succes[1].function, "func2");
+            })
+            .catch(err => console.log(err));
+    });
+    it("A Happy path for the run function with runTimes parameter", async () => {
+        run({ functions: [func1, func2], runTimes: 20 }, "test")
             .then(succes => {
                 assert.deepEqual(succes.length, 2);
                 assert.deepEqual(succes[0].function, "func1");
@@ -22,7 +31,7 @@ describe("The modeule test suite", function() {
             .catch(err => console.log(err));
     });
     it("A UNHAPPY path for the run function", async () => {
-        run([errFunc, func2], "test")
+        run({ functions: [errFunc, func2] }, "test")
             .then(succes => {
                 console.log(succes);
             })

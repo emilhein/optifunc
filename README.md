@@ -22,12 +22,14 @@ let func1 = a => a;
 let func2 = a => a;
 
 compare(func1, func2, "Someinput")
-    .then(res => run([func1, func2]))
+    .then(res => run({ functions: [func1, func2] }))
     .then(stats => {
         console.log(stats);
     });
-
 // Output
 // ​​​​​[ { function: 'func1', max: 0.034, min: 0.001, avg: '0.005' },​​​​​
 // ​​​​​  { function: 'func2', max: 0.001, min: 0.001, avg: '0.001' } ]​​​​​
+
+//Or only the run function
+run({ functions: [func1, func2], runTimes: 20 }, "test").then(res => console.log(res));
 ```
