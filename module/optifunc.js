@@ -63,10 +63,13 @@ const timeFunction = (func, ...input) => {
     func(...input); // run without care for output
     return elapsed_time(start);
 };
-const compare = (func1, func2, ...args) => {
+const compare = ({ functions = [], args = [] }) => {
     return new Promise((resolve, reject) => {
         try {
-            assert.deepEqual(func1(...args), func2(...args));
+            let firstRes = functions[0](...args);
+            functions.forEach(func => {
+                assert.deepEqual(func(...args), firstRes);
+            });
             resolve("same output");
         } catch (e) {
             reject(e);

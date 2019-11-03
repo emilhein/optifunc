@@ -3,6 +3,7 @@ const assert = require("assert");
 const { run, compare } = require("./../module/optifunc");
 let func1 = () => "output for a";
 let func2 = a => a;
+let func2Diff = a => "Something lse";
 let func3 = a => {
     let b = a;
     return b;
@@ -45,14 +46,14 @@ describe("The modeule test suite", function() {
     });
 
     it("A Happy path for the compare function (similar output)", async () => {
-        compare(func2, func3)
+        compare({ functions: [func2, func3, func2] })
             .then(succes => assert.deepEqual(succes, "same output"))
             .catch(err => console.log(err));
     });
 
     it("A path in which the function dont comapre", async () => {
         let input = "SOMEINPUT";
-        compare(func1, func2, input)
+        compare({ functions: [func1, func2], args: [input] })
             .then(succes => console.log(succes))
             .catch(err => {
                 assert.deepEqual(typeof err, "object");

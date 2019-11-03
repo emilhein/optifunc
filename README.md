@@ -21,7 +21,7 @@ let { run, compare } = require("optifunc");
 let func1 = a => a;
 let func2 = a => a;
 
-compare(func1, func2, "Someinput")
+compare({functions : [func1, func2], args: ["Someinput"] )
     .then(res => run({ functions: [func1, func2] }))
     .then(stats => {
         console.log(stats);
